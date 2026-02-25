@@ -1,3 +1,5 @@
+import { Leaf, Flower2, Sprout } from 'lucide-react'
+
 export default function Hero() {
   return (
     <section className="hero" id="hero">
@@ -15,20 +17,16 @@ export default function Hero() {
           unutulmaz anlar yaratıyoruz.
         </p>
         <div className="hero-btns">
-          <a href="#packages" className="btn btn-primary">
-            Paketleri Gör
-          </a>
-          <a href="#contact" className="btn btn-outline">
-            Rezervasyon Yap
-          </a>
+          <a href="#packages" className="btn btn-primary">Paketleri Gör</a>
+          <a href="#contact" className="btn btn-outline">Rezervasyon Yap</a>
         </div>
       </div>
       <div className="hero-scroll">
         <span />
       </div>
-      <div className="leaf leaf-1">🍃</div>
-      <div className="leaf leaf-2">🌸</div>
-      <div className="leaf leaf-3">🍃</div>
+      <div className="leaf leaf-1"><Leaf size={36} /></div>
+      <div className="leaf leaf-2"><Flower2 size={28} /></div>
+      <div className="leaf leaf-3"><Sprout size={22} /></div>
     </section>
   )
 }

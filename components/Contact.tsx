@@ -1,6 +1,17 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Instagram,
+  Facebook,
+  CheckCircle2,
+  ArrowRight,
+  Loader2,
+} from 'lucide-react'
 
 type FormState = {
   name: string
@@ -41,9 +52,7 @@ export default function Contact() {
     const errs = validate()
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
-
     setLoading(true)
-    // Simulate API call
     setTimeout(() => {
       setLoading(false)
       setSuccess(true)
@@ -55,9 +64,7 @@ export default function Contact() {
   const field = (key: keyof FormState) => ({
     value: form[key],
     onChange: (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-      >,
+      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     ) => {
       setForm((prev) => ({ ...prev, [key]: e.target.value }))
       if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
@@ -82,23 +89,21 @@ export default function Contact() {
           </p>
           <ul className="contact-details">
             <li>
-              <span className="contact-icon">📍</span>
+              <span className="contact-icon"><MapPin size={20} /></span>
               <div>
                 <strong>Adres</strong>
                 <p>Alaattin Kırbahçesi, Sakarya, Türkiye</p>
               </div>
             </li>
             <li>
-              <span className="contact-icon">📞</span>
+              <span className="contact-icon"><Phone size={20} /></span>
               <div>
                 <strong>Telefon</strong>
-                <p>
-                  <a href="tel:+905001234567">+90 500 123 45 67</a>
-                </p>
+                <p><a href="tel:+905305223793">+90 530 522 37 93</a></p>
               </div>
             </li>
             <li>
-              <span className="contact-icon">📧</span>
+              <span className="contact-icon"><Mail size={20} /></span>
               <div>
                 <strong>E-posta</strong>
                 <p>
@@ -109,7 +114,7 @@ export default function Contact() {
               </div>
             </li>
             <li>
-              <span className="contact-icon">🕐</span>
+              <span className="contact-icon"><Clock size={20} /></span>
               <div>
                 <strong>Çalışma Saatleri</strong>
                 <p>Her gün 09:00 – 22:00</p>
@@ -118,10 +123,10 @@ export default function Contact() {
           </ul>
           <div className="social-links">
             <a href="#" aria-label="Instagram" className="social-btn">
-              📸 Instagram
+              <Instagram size={16} /> Instagram
             </a>
             <a href="#" aria-label="Facebook" className="social-btn">
-              📘 Facebook
+              <Facebook size={16} /> Facebook
             </a>
           </div>
         </div>
@@ -131,32 +136,17 @@ export default function Contact() {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="name">Ad Soyad *</label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Adınız Soyadınız"
-                {...field('name')}
-              />
+              <input type="text" id="name" placeholder="Adınız Soyadınız" {...field('name')} />
             </div>
             <div className="form-group">
               <label htmlFor="phone">Telefon *</label>
-              <input
-                type="tel"
-                id="phone"
-                placeholder="05XX XXX XX XX"
-                {...field('phone')}
-              />
+              <input type="tel" id="phone" placeholder="05XX XXX XX XX" {...field('phone')} />
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="email">E-posta</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="ornek@mail.com"
-              {...field('email')}
-            />
+            <input type="email" id="email" placeholder="ornek@mail.com" {...field('email')} />
           </div>
 
           <div className="form-row">
@@ -205,13 +195,23 @@ export default function Contact() {
             className="btn btn-primary btn-full"
             disabled={loading}
           >
-            <span>{loading ? 'Gönderiliyor…' : 'Teklif İsteyin'}</span>
-            {!loading && <span>→</span>}
+            {loading ? (
+              <>
+                <Loader2 size={18} className="spin" />
+                Gönderiliyor…
+              </>
+            ) : (
+              <>
+                Teklif İsteyin
+                <ArrowRight size={18} />
+              </>
+            )}
           </button>
 
           {success && (
             <div className="form-success show">
-              ✅ Mesajınız alındı! En kısa sürede sizi arayacağız.
+              <CheckCircle2 size={18} />
+              Mesajınız alındı! En kısa sürede sizi arayacağız.
             </div>
           )}
         </form>

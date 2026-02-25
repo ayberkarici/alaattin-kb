@@ -1,31 +1,33 @@
-const events = [
+import { Sparkles, Gem, BookOpen, Flame, Trees, Cake, type LucideIcon } from 'lucide-react'
+
+const events: { Icon: LucideIcon; title: string; desc: string }[] = [
   {
-    icon: '🎊',
+    Icon: Sparkles,
     title: 'Sünnet Düğünü',
     desc: 'Oğlunuzun en özel gününü renkli süslemeler, canlı müzik ve özel ikramlarla taçlandırıyoruz.',
   },
   {
-    icon: '💍',
+    Icon: Gem,
     title: 'Nişan',
     desc: 'Çiçekler, romantik dekor ve özel menülerle nişan töreninizi masalsı bir anıya dönüştürüyoruz.',
   },
   {
-    icon: '🕌',
+    Icon: BookOpen,
     title: 'Mevlüt',
     desc: 'Huzurlu doğa ortamımızda mevlüt töreninizi saygın ve sıcak bir atmosferde gerçekleştirin.',
   },
   {
-    icon: '🌸',
+    Icon: Flame,
     title: 'Kına Gecesi',
     desc: 'Geleneksel kına gecenizi; folklör, eğlence ve özel kına dekorasyonuyla yaşayın.',
   },
   {
-    icon: '🍽️',
+    Icon: Trees,
     title: 'Şirket Pikniği',
     desc: 'Takım ruhunu doğada güçlendirin. Kurumsal piknikler için geniş alan ve özel ikram hizmeti.',
   },
   {
-    icon: '🎂',
+    Icon: Cake,
     title: 'Doğum Günü',
     desc: 'Yaşım başına özel temalar, pasta ve sürpriz organizasyonlarla doğum günlerini unutulmaz kılıyoruz.',
   },
@@ -42,11 +44,13 @@ export default function Events() {
           Buradayız
         </h2>
         <div className="events-grid">
-          {events.map((e) => (
-            <div key={e.title} className="event-card">
-              <div className="event-icon">{e.icon}</div>
-              <h3>{e.title}</h3>
-              <p>{e.desc}</p>
+          {events.map(({ Icon, title, desc }) => (
+            <div key={title} className="event-card">
+              <div className="event-icon">
+                <Icon size={30} strokeWidth={1.5} />
+              </div>
+              <h3>{title}</h3>
+              <p>{desc}</p>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { Leaf, Menu, X } from 'lucide-react'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,7 +13,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close menu on outside click
   useEffect(() => {
     if (!menuOpen) return
     const handleClick = (e: MouseEvent) => {
@@ -42,7 +42,7 @@ export default function Navbar() {
     <nav id="navbar" className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="nav-inner">
         <a href="#hero" className="logo" onClick={closeMenu}>
-          <span className="logo-leaf">🌿</span>
+          <Leaf size={22} />
           <span>
             Alaattin <em>Kırbahçesi</em>
           </span>
@@ -54,31 +54,21 @@ export default function Navbar() {
           aria-expanded={menuOpen}
           onClick={toggleMenu}
         >
-          <span />
-          <span />
-          <span />
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
         <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
           <li>
-            <a href="#about" onClick={closeMenu}>
-              Hakkımızda
-            </a>
+            <a href="#about" onClick={closeMenu}>Hakkımızda</a>
           </li>
           <li>
-            <a href="#packages" onClick={closeMenu}>
-              Paketler
-            </a>
+            <a href="#packages" onClick={closeMenu}>Paketler</a>
           </li>
           <li>
-            <a href="#gallery" onClick={closeMenu}>
-              Galeri
-            </a>
+            <a href="#gallery" onClick={closeMenu}>Galeri</a>
           </li>
           <li>
-            <a href="#contact" className="nav-cta" onClick={closeMenu}>
-              İletişim
-            </a>
+            <a href="#contact" className="nav-cta" onClick={closeMenu}>İletişim</a>
           </li>
         </ul>
       </div>

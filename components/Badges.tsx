@@ -1,17 +1,19 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { TreePine, PartyPopper, Users, Star } from 'lucide-react'
 
-const badgeData = [
-  { icon: '🌳', value: 5000, suffix: ' m²', label: 'Yeşil Alan' },
-  { icon: '🎉', value: 500, suffix: '+', label: 'Mutlu Etkinlik' },
-  { icon: '👥', value: 1000, suffix: '', label: 'Kişilik Kapasite' },
-  { icon: '⭐', value: 15, suffix: '+ Yıl', label: 'Deneyim' },
+type BadgeEntry = { icon: ReactNode; value: number; suffix: string; label: string }
+
+const badgeData: BadgeEntry[] = [
+  { icon: <TreePine size={32} />, value: 5000, suffix: ' m²', label: 'Yeşil Alan' },
+  { icon: <PartyPopper size={32} />, value: 500, suffix: '+', label: 'Mutlu Etkinlik' },
+  { icon: <Users size={32} />, value: 1000, suffix: '', label: 'Kişilik Kapasite' },
+  { icon: <Star size={32} />, value: 15, suffix: '+ Yıl', label: 'Deneyim' },
 ]
 
 function useCountUp(target: number, duration = 1500, active: boolean) {
   const [count, setCount] = useState(0)
-
   useEffect(() => {
     if (!active) return
     const start = performance.now()
@@ -23,17 +25,10 @@ function useCountUp(target: number, duration = 1500, active: boolean) {
     }
     requestAnimationFrame(step)
   }, [active, target, duration])
-
   return count
 }
 
-function BadgeItem({
-  icon,
-  value,
-  suffix,
-  label,
-  active,
-}: (typeof badgeData)[0] & { active: boolean }) {
+function BadgeItem({ icon, value, suffix, label, active }: BadgeEntry & { active: boolean }) {
   const count = useCountUp(value, 1500, active)
   return (
     <div className="badge-item">

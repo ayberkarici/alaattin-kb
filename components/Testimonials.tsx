@@ -1,10 +1,12 @@
+import { Star } from 'lucide-react'
+
 const testimonials = [
   {
     initials: 'AY',
     name: 'Ahmet Yıldız',
     location: 'Sakarya',
     quote:
-      'Oğlumun sünnet düğününü Alaattin Kırbahçesi\'nde yaptık. Yeşil ortam, güler yüzlü ekip ve harika organizasyon ile tam istediğimiz gibi oldu.',
+      "Oğlumun sünnet düğününü Alaattin Kırbahçesi'nde yaptık. Yeşil ortam, güler yüzlü ekip ve harika organizasyon ile tam istediğimiz gibi oldu.",
   },
   {
     initials: 'FD',
@@ -35,7 +37,11 @@ export default function Testimonials() {
         <div className="testimonials-grid">
           {testimonials.map((t) => (
             <div key={t.name} className="testimonial-card">
-              <div className="stars">★★★★★</div>
+              <div className="stars">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={16} fill="currentColor" strokeWidth={0} />
+                ))}
+              </div>
               <p>&ldquo;{t.quote}&rdquo;</p>
               <div className="testimonial-author">
                 <div className="author-avatar">{t.initials}</div>

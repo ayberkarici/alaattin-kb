@@ -1,10 +1,20 @@
-const packages = [
+import { Sprout, Flower2, TreePine, Check, X, type LucideIcon } from 'lucide-react'
+
+type PackageData = {
+  tier: string
+  Icon: LucideIcon
+  name: string
+  sub: string
+  featured: boolean
+  features: { text: string; enabled: boolean }[]
+}
+
+const packages: PackageData[] = [
   {
     tier: 'Başlangıç',
-    icon: '🌱',
+    Icon: Sprout,
     name: 'Tomurcuk',
     sub: 'Küçük ve samimi etkinlikler için',
-    price: '15.000',
     featured: false,
     features: [
       { text: '200 kişiye kadar kapasite', enabled: true },
@@ -18,10 +28,9 @@ const packages = [
   },
   {
     tier: 'Orta',
-    icon: '🌿',
+    Icon: Flower2,
     name: 'Çiçek',
     sub: 'Çoğu etkinlik için ideal seçim',
-    price: '35.000',
     featured: true,
     features: [
       { text: '500 kişiye kadar kapasite', enabled: true },
@@ -35,10 +44,9 @@ const packages = [
   },
   {
     tier: 'Premium',
-    icon: '🌳',
+    Icon: TreePine,
     name: 'Orman',
     sub: 'Eksiksiz lüks deneyim',
-    price: '65.000',
     featured: false,
     features: [
       { text: '1.000 kişiye kadar kapasite', enabled: true },
@@ -57,7 +65,7 @@ export default function Packages() {
     <section className="packages section" id="packages">
       <div className="packages-bg" />
       <div className="container">
-        <p className="section-label center">Fiyatlandırma</p>
+        <p className="section-label center">Paketlerimiz</p>
         <h2 className="section-title center">
           İhtiyacınıza Uygun
           <br />
@@ -68,36 +76,32 @@ export default function Packages() {
         </p>
 
         <div className="packages-grid">
-          {packages.map((pkg) => (
-            <div
-              key={pkg.name}
-              className={`pkg-card${pkg.featured ? ' featured' : ''}`}
-            >
-              {pkg.featured && (
-                <div className="popular-badge">En Popüler</div>
-              )}
+          {packages.map(({ tier, Icon, name, sub, featured, features }) => (
+            <div key={name} className={`pkg-card${featured ? ' featured' : ''}`}>
+              {featured && <div className="popular-badge">En Popüler</div>}
               <div className="pkg-header">
-                <span className="pkg-badge">{pkg.tier}</span>
-                <div className="pkg-icon">{pkg.icon}</div>
-                <h3>{pkg.name}</h3>
-                <p className="pkg-sub">{pkg.sub}</p>
-              </div>
-              <div className="pkg-price">
-                <span className="currency">₺</span>
-                <span className="amount">{pkg.price}</span>
-                <span className="per">&apos;den başlayan</span>
+                <span className="pkg-badge">{tier}</span>
+                <div className="pkg-icon">
+                  <Icon size={28} strokeWidth={1.5} />
+                </div>
+                <h3>{name}</h3>
+                <p className="pkg-sub">{sub}</p>
               </div>
               <ul className="pkg-features">
-                {pkg.features.map((f) => (
+                {features.map((f) => (
                   <li key={f.text} className={f.enabled ? '' : 'disabled'}>
-                    <span>{f.enabled ? '✓' : '✗'}</span>
+                    <span className="pkg-feature-icon">
+                      {f.enabled
+                        ? <Check size={14} strokeWidth={3} />
+                        : <X size={14} strokeWidth={3} />}
+                    </span>
                     {f.text}
                   </li>
                 ))}
               </ul>
               <a
                 href="#contact"
-                className={`btn pkg-btn ${pkg.featured ? 'btn-primary' : 'btn-outline'}`}
+                className={`btn pkg-btn ${featured ? 'btn-primary' : 'btn-outline'}`}
               >
                 Teklif Al
               </a>
@@ -106,8 +110,8 @@ export default function Packages() {
         </div>
 
         <p className="pkg-note">
-          * Fiyatlar etkinlik türü ve tarihe göre değişiklik gösterebilir. Özel
-          fiyatlandırma için lütfen iletişime geçin.
+          * Fiyatlandırma etkinlik türü ve tarihe göre belirlenmektedir. Özel
+          teklif için lütfen iletişime geçin.
         </p>
       </div>
     </section>
