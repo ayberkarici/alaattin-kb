@@ -1,220 +1,67 @@
-'use client'
+import { MapPin, Phone, Mail, Clock, Instagram, Facebook } from 'lucide-react'
 
-import { useState, FormEvent } from 'react'
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Instagram,
-  Facebook,
-  CheckCircle2,
-  ArrowRight,
-  Loader2,
-} from 'lucide-react'
-
-type FormState = {
-  name: string
-  phone: string
-  email: string
-  eventType: string
-  eventDate: string
-  guestCount: string
-  message: string
-}
-
-const initialState: FormState = {
-  name: '',
-  phone: '',
-  email: '',
-  eventType: '',
-  eventDate: '',
-  guestCount: '',
-  message: '',
-}
+const contactItems = [
+  {
+    Icon: MapPin,
+    label: 'Adres',
+    value: 'Alaattin Kırbahçesi, Sakarya, Türkiye',
+    href: null,
+  },
+  {
+    Icon: Phone,
+    label: 'Telefon',
+    value: '+90 530 522 37 93',
+    href: 'tel:+905305223793',
+  },
+  {
+    Icon: Mail,
+    label: 'E-posta',
+    value: 'info@alaattinkirbahcesi.com',
+    href: 'mailto:info@alaattinkirbahcesi.com',
+  },
+  {
+    Icon: Clock,
+    label: 'Çalışma Saatleri',
+    value: 'Her gün 09:00 – 22:00',
+    href: null,
+  },
+]
 
 export default function Contact() {
-  const [form, setForm] = useState<FormState>(initialState)
-  const [errors, setErrors] = useState<Partial<FormState>>({})
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
-
-  const validate = () => {
-    const e: Partial<FormState> = {}
-    if (!form.name.trim()) e.name = 'Zorunlu'
-    if (!form.phone.trim()) e.phone = 'Zorunlu'
-    if (!form.eventType) e.eventType = 'Zorunlu'
-    return e
-  }
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    const errs = validate()
-    setErrors(errs)
-    if (Object.keys(errs).length > 0) return
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setSuccess(true)
-      setForm(initialState)
-      setTimeout(() => setSuccess(false), 6000)
-    }, 1200)
-  }
-
-  const field = (key: keyof FormState) => ({
-    value: form[key],
-    onChange: (
-      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-    ) => {
-      setForm((prev) => ({ ...prev, [key]: e.target.value }))
-      if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
-    },
-    style: errors[key] ? { borderColor: '#e53935' } : undefined,
-  })
-
   return (
     <section className="contact section" id="contact">
-      <div className="container contact-grid">
-        {/* Info */}
-        <div className="contact-info">
-          <p className="section-label">İletişim</p>
-          <h2>
-            Rezervasyon &amp;
-            <br />
-            Bilgi Alın
-          </h2>
-          <p>
-            Etkinliğiniz için en uygun paketi ve tarihi birlikte belirleyelim.
-            Ekibimiz size 24 saat içinde geri dönecektir.
-          </p>
-          <ul className="contact-details">
-            <li>
-              <span className="contact-icon"><MapPin size={20} /></span>
-              <div>
-                <strong>Adres</strong>
-                <p>Alaattin Kırbahçesi, Sakarya, Türkiye</p>
-              </div>
-            </li>
-            <li>
-              <span className="contact-icon"><Phone size={20} /></span>
-              <div>
-                <strong>Telefon</strong>
-                <p><a href="tel:+905305223793">+90 530 522 37 93</a></p>
-              </div>
-            </li>
-            <li>
-              <span className="contact-icon"><Mail size={20} /></span>
-              <div>
-                <strong>E-posta</strong>
-                <p>
-                  <a href="mailto:info@alaattinkirbahcesi.com">
-                    info@alaattinkirbahcesi.com
-                  </a>
-                </p>
-              </div>
-            </li>
-            <li>
-              <span className="contact-icon"><Clock size={20} /></span>
-              <div>
-                <strong>Çalışma Saatleri</strong>
-                <p>Her gün 09:00 – 22:00</p>
-              </div>
-            </li>
-          </ul>
-          <div className="social-links">
-            <a href="#" aria-label="Instagram" className="social-btn">
-              <Instagram size={16} /> Instagram
-            </a>
-            <a href="#" aria-label="Facebook" className="social-btn">
-              <Facebook size={16} /> Facebook
-            </a>
-          </div>
+      <div className="container">
+        <p className="section-label center">İletişim</p>
+        <h2 className="section-title center">Bize Ulaşın</h2>
+        <p className="section-sub center">
+          Etkinliğiniz için en uygun paketi ve tarihi birlikte belirleyelim.
+          Sorularınız için bize ulaşın, 24 saat içinde geri dönelim.
+        </p>
+
+        <div className="contact-cards">
+          {contactItems.map(({ Icon, label, value, href }) => (
+            <div key={label} className="contact-card">
+              <span className="contact-card-icon">
+                <Icon size={22} strokeWidth={1.5} />
+              </span>
+              <strong>{label}</strong>
+              {href ? (
+                <a href={href}>{value}</a>
+              ) : (
+                <p>{value}</p>
+              )}
+            </div>
+          ))}
         </div>
 
-        {/* Form */}
-        <form className="contact-form" onSubmit={handleSubmit} noValidate>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="name">Ad Soyad *</label>
-              <input type="text" id="name" placeholder="Adınız Soyadınız" {...field('name')} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Telefon *</label>
-              <input type="tel" id="phone" placeholder="05XX XXX XX XX" {...field('phone')} />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">E-posta</label>
-            <input type="email" id="email" placeholder="ornek@mail.com" {...field('email')} />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="eventType">Etkinlik Türü *</label>
-              <select id="eventType" {...field('eventType')}>
-                <option value="">Seçiniz…</option>
-                <option>Sünnet Düğünü</option>
-                <option>Nişan</option>
-                <option>Mevlüt</option>
-                <option>Kına Gecesi</option>
-                <option>Şirket Pikniği</option>
-                <option>Doğum Günü</option>
-                <option>Diğer</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="eventDate">Etkinlik Tarihi</label>
-              <input type="date" id="eventDate" {...field('eventDate')} />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="guestCount">Misafir Sayısı</label>
-            <input
-              type="number"
-              id="guestCount"
-              placeholder="Tahmini kişi sayısı"
-              min="1"
-              {...field('guestCount')}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Mesajınız</label>
-            <textarea
-              id="message"
-              rows={4}
-              placeholder="Özel istekleriniz veya sorularınız…"
-              {...field('message')}
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="btn btn-primary btn-full"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Loader2 size={18} className="spin" />
-                Gönderiliyor…
-              </>
-            ) : (
-              <>
-                Teklif İsteyin
-                <ArrowRight size={18} />
-              </>
-            )}
-          </button>
-
-          {success && (
-            <div className="form-success show">
-              <CheckCircle2 size={18} />
-              Mesajınız alındı! En kısa sürede sizi arayacağız.
-            </div>
-          )}
-        </form>
+        <div className="contact-social">
+          <a href="#" aria-label="Instagram" className="social-btn">
+            <Instagram size={16} /> Instagram
+          </a>
+          <a href="#" aria-label="Facebook" className="social-btn">
+            <Facebook size={16} /> Facebook
+          </a>
+        </div>
       </div>
     </section>
   )

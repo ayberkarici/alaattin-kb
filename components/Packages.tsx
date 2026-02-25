@@ -11,9 +11,9 @@ type PackageData = {
 
 const packages: PackageData[] = [
   {
-    tier: 'Başlangıç',
+    tier: 'Temel',
     Icon: Sprout,
-    name: 'Tomurcuk',
+    name: 'Standart',
     sub: 'Küçük ve samimi etkinlikler için',
     featured: false,
     features: [
@@ -27,9 +27,9 @@ const packages: PackageData[] = [
     ],
   },
   {
-    tier: 'Orta',
+    tier: 'Klasik',
     Icon: Flower2,
-    name: 'Çiçek',
+    name: 'Konfor',
     sub: 'Çoğu etkinlik için ideal seçim',
     featured: true,
     features: [
@@ -43,9 +43,9 @@ const packages: PackageData[] = [
     ],
   },
   {
-    tier: 'Premium',
+    tier: 'Prestij',
     Icon: TreePine,
-    name: 'Orman',
+    name: 'Lüks',
     sub: 'Eksiksiz lüks deneyim',
     featured: false,
     features: [
