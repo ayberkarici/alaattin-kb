@@ -1,5 +1,5 @@
 /* ================================================================
-   ALAATTIN KIRBAHÇESI – MAIN STYLESHEET
+   ALAATTIN KIRBAHÇESI – GLOBAL STYLES
    Green Nature Theme · Turkish Event Venue · Sakarya
 ================================================================ */
 
@@ -18,7 +18,6 @@
   --green-50:  #f1f9f2;
 
   --gold:      #c9a227;
-  --gold-light:#f0d060;
 
   --text-dark: #1a2b1c;
   --text-mid:  #3d5c42;
@@ -128,6 +127,17 @@ input, select, textarea, button { font-family: inherit; }
   max-width: 560px;
 }
 .section-sub.center { text-align: center; margin-inline: auto; margin-bottom: 3rem; }
+
+/* ── Reveal animation ─────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* ── Navbar ───────────────────────────────────────────────────── */
 .navbar {
@@ -286,7 +296,6 @@ input, select, textarea, button { font-family: inherit; }
 .hero-btns .btn-outline { color: var(--white); border-color: rgba(255,255,255,.7); }
 .hero-btns .btn-outline:hover { background: rgba(255,255,255,.15); border-color: var(--white); }
 
-/* Scroll arrow */
 .hero-scroll {
   position: absolute;
   bottom: 2rem; left: 50%;
@@ -306,7 +315,6 @@ input, select, textarea, button { font-family: inherit; }
   50% { transform: rotate(45deg) translateY(6px); opacity: .3; }
 }
 
-/* Floating leaves */
 .leaf {
   position: absolute;
   font-size: 2rem;
@@ -352,11 +360,7 @@ input, select, textarea, button { font-family: inherit; }
   color: var(--green-700);
   line-height: 1;
 }
-.badge-item p {
-  font-size: .85rem;
-  color: var(--text-light);
-  margin: 0;
-}
+.badge-item p { font-size: .85rem; color: var(--text-light); margin: 0; }
 
 /* ── About ────────────────────────────────────────────────────── */
 .about { background: var(--green-50); }
@@ -368,15 +372,16 @@ input, select, textarea, button { font-family: inherit; }
   align-items: center;
 }
 
-.about-images {
-  position: relative;
-}
+.about-images { position: relative; }
+
 .img-main {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   height: 500px;
   box-shadow: var(--shadow-lg);
 }
+
 .img-accent {
   position: absolute;
   bottom: -40px; right: -30px;
@@ -386,6 +391,12 @@ input, select, textarea, button { font-family: inherit; }
   border: 6px solid var(--white);
   box-shadow: var(--shadow-md);
 }
+.img-accent-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .about-badge-float {
   position: absolute;
   top: -20px; left: -20px;
@@ -407,10 +418,7 @@ input, select, textarea, button { font-family: inherit; }
   color: var(--text-dark);
   margin-bottom: 1.25rem;
 }
-.about-text p {
-  color: var(--text-mid);
-  margin-bottom: 1rem;
-}
+.about-text p { color: var(--text-mid); margin-bottom: 1rem; }
 
 .about-features {
   display: grid;
@@ -425,11 +433,7 @@ input, select, textarea, button { font-family: inherit; }
   font-size: .9rem;
   color: var(--text-mid);
 }
-.check {
-  color: var(--green-500);
-  font-weight: 700;
-  font-size: 1rem;
-}
+.check { color: var(--green-500); font-weight: 700; font-size: 1rem; }
 
 /* ── Events ───────────────────────────────────────────────────── */
 .events { background: var(--white); }
@@ -448,7 +452,6 @@ input, select, textarea, button { font-family: inherit; }
   padding: 2.25rem 1.75rem;
   text-align: center;
   transition: var(--transition);
-  cursor: default;
 }
 .event-card:hover {
   transform: translateY(-6px);
@@ -539,7 +542,7 @@ input, select, textarea, button { font-family: inherit; }
   border-radius: 50px;
   margin-bottom: 1rem;
 }
-.pkg-card.featured .pkg-badge { color: var(--green-600); border-color: var(--green-200); }
+.pkg-card.featured .pkg-badge { color: var(--green-600); border-color: var(--green-100); }
 .pkg-icon { font-size: 2.5rem; margin-bottom: .75rem; }
 .pkg-header h3 {
   font-family: var(--font-serif);
@@ -584,7 +587,6 @@ input, select, textarea, button { font-family: inherit; }
 .pkg-card.featured .pkg-features li { color: var(--text-mid); border-color: var(--green-50); }
 .pkg-features li span { color: var(--green-400); font-weight: 700; }
 .pkg-features li.disabled { opacity: .4; }
-.pkg-features li.disabled span { color: rgba(255,255,255,.4); }
 .pkg-card.featured .pkg-features li span { color: var(--green-500); }
 
 .pkg-btn { width: 100%; justify-content: center; }
@@ -612,7 +614,7 @@ input, select, textarea, button { font-family: inherit; }
 .filter-btn {
   padding: .5rem 1.4rem;
   border-radius: 50px;
-  border: 2px solid var(--green-200);
+  border: 2px solid var(--green-100);
   background: transparent;
   color: var(--text-mid);
   font-size: .88rem;
@@ -640,9 +642,13 @@ input, select, textarea, button { font-family: inherit; }
 }
 .gallery-item.tall { grid-row: span 2; }
 .gallery-item.wide { grid-column: span 2; }
+.gallery-item.hidden { display: none; }
 
 .gallery-item img {
   transition: transform .5s ease;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 .gallery-item:hover img { transform: scale(1.06); }
 
@@ -657,15 +663,7 @@ input, select, textarea, button { font-family: inherit; }
   padding: 1.25rem;
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay span {
-  color: var(--white);
-  font-size: .9rem;
-  font-weight: 500;
-}
-
-.gallery-item.hidden {
-  display: none;
-}
+.gallery-overlay span { color: var(--white); font-size: .9rem; font-weight: 500; }
 
 /* Lightbox */
 .lightbox {
@@ -691,15 +689,16 @@ input, select, textarea, button { font-family: inherit; }
   height: auto;
   border-radius: var(--radius);
   object-fit: contain;
+  display: block;
 }
-#lightboxCaption {
+.lightbox-caption {
   color: rgba(255,255,255,.7);
   font-size: .9rem;
   margin-top: .75rem;
 }
 .lightbox-close {
-  position: absolute;
-  top: 1rem; right: 1rem;
+  position: fixed;
+  top: 1.5rem; right: 1.5rem;
   background: rgba(255,255,255,.15);
   border: none;
   color: var(--white);
@@ -712,7 +711,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .lightbox-close:hover { background: rgba(255,255,255,.3); }
 .lightbox-nav {
-  position: absolute;
+  position: fixed;
   top: 50%; transform: translateY(-50%);
   background: rgba(255,255,255,.15);
   border: none;
@@ -723,6 +722,9 @@ input, select, textarea, button { font-family: inherit; }
   cursor: pointer;
   transition: var(--transition);
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .lightbox-nav:hover { background: rgba(255,255,255,.3); }
 .lightbox-nav.prev { left: 1rem; }
@@ -744,10 +746,7 @@ input, select, textarea, button { font-family: inherit; }
   padding: 2rem;
   transition: var(--transition);
 }
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: .1em; }
 .testimonial-card p {
   color: var(--text-mid);
@@ -756,11 +755,7 @@ input, select, textarea, button { font-family: inherit; }
   font-style: italic;
   margin-bottom: 1.5rem;
 }
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: .875rem;
-}
+.testimonial-author { display: flex; align-items: center; gap: .875rem; }
 .author-avatar {
   width: 44px; height: 44px;
   border-radius: 50%;
@@ -795,11 +790,7 @@ input, select, textarea, button { font-family: inherit; }
 .contact-info > p { color: var(--text-mid); margin-bottom: 2rem; line-height: 1.8; }
 
 .contact-details { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem; }
-.contact-details li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
+.contact-details li { display: flex; align-items: flex-start; gap: 1rem; }
 .contact-icon { font-size: 1.3rem; margin-top: .1rem; }
 .contact-details strong { display: block; font-size: .85rem; color: var(--text-dark); margin-bottom: .25rem; }
 .contact-details p { font-size: .9rem; color: var(--text-mid); margin: 0; }
@@ -812,18 +803,14 @@ input, select, textarea, button { font-family: inherit; }
   align-items: center;
   gap: .5rem;
   padding: .55rem 1.25rem;
-  border: 1.5px solid var(--green-200);
+  border: 1.5px solid var(--green-100);
   border-radius: 50px;
   font-size: .85rem;
   font-weight: 500;
   color: var(--text-mid);
   transition: var(--transition);
 }
-.social-btn:hover {
-  background: var(--green-600);
-  border-color: var(--green-600);
-  color: var(--white);
-}
+.social-btn:hover { background: var(--green-600); border-color: var(--green-600); color: var(--white); }
 
 /* Contact Form */
 .contact-form {
@@ -846,7 +833,7 @@ input, select, textarea, button { font-family: inherit; }
 .form-group textarea {
   width: 100%;
   padding: .75rem 1rem;
-  border: 1.5px solid var(--green-200);
+  border: 1.5px solid var(--green-100);
   border-radius: var(--radius);
   background: var(--white);
   color: var(--text-dark);
@@ -883,10 +870,7 @@ input, select, textarea, button { font-family: inherit; }
 .form-success.show { display: block; }
 
 /* ── Footer ───────────────────────────────────────────────────── */
-.footer {
-  background: var(--green-900);
-  padding: 4rem 0 0;
-}
+.footer { background: var(--green-900); padding: 4rem 0 0; }
 .footer-inner {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
@@ -906,32 +890,14 @@ input, select, textarea, button { font-family: inherit; }
   margin-bottom: 1.25rem;
 }
 .footer-links ul { display: flex; flex-direction: column; gap: .65rem; }
-.footer-links a {
-  font-size: .88rem;
-  color: rgba(255,255,255,.55);
-  transition: var(--transition);
-}
+.footer-links a { font-size: .88rem; color: rgba(255,255,255,.55); transition: var(--transition); }
 .footer-links a:hover { color: var(--white); padding-left: 4px; }
 .footer-contact p { font-size: .88rem; color: rgba(255,255,255,.55); margin-bottom: .6rem; }
 .footer-contact a { color: rgba(255,255,255,.55); }
 .footer-contact a:hover { color: var(--white); }
 
-.footer-bottom {
-  text-align: center;
-  padding: 1.5rem 0;
-}
+.footer-bottom { text-align: center; padding: 1.5rem 0; }
 .footer-bottom p { font-size: .82rem; color: rgba(255,255,255,.3); }
-
-/* ── Animations / Reveal ──────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 1024px) {
@@ -966,24 +932,16 @@ input, select, textarea, button { font-family: inherit; }
 
   .hero-content h1 { font-size: 2.3rem; }
   .hero-btns { flex-direction: column; align-items: center; }
-
   .badges-grid { grid-template-columns: repeat(2, 1fr); }
-
   .events-grid { grid-template-columns: 1fr 1fr; }
   .packages-grid { grid-template-columns: 1fr; }
   .pkg-card.featured { transform: none; }
   .pkg-card.featured:hover { transform: translateY(-4px); }
-
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
-  }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
   .gallery-item.wide { grid-column: span 1; }
-
   .testimonials-grid { grid-template-columns: 1fr; }
   .about-images { max-width: 100%; }
   .img-accent { display: none; }
-
   .form-row { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
 }
